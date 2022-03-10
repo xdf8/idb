@@ -23,6 +23,7 @@ def main():
             t = time.localtime(now)
             humidity = int(round(humidity))
             temperature = int(round(temperature))
+            distance = int(round(distance))
             #print("{:02d}:{:02d}:{:02d},{:g},{:g}".format(t.tm_hour, t.tm_min, t.tm_sec, temperature, humidity), flush=True)
             print(
                 'temp: ', temperature,
@@ -33,6 +34,7 @@ def main():
 
 
     except KeyboardInterrupt:
+        print('\n')
         pass
 
 if __name__ == '__main__':
