@@ -1,5 +1,4 @@
 import time
-import grove.grove_button as button
 from grove.gpio import GPIO
 
 BUTTON_PIN = 16
