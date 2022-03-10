@@ -13,22 +13,23 @@ def main():
     ultra_sonic_sensor = usr.GroveUltrasonicRanger(USR_PIN)
 
     try:
-        # Try to grab a temp_sensor reading
-        humidity, temperature = temp_sensor.read()
-        distance = ultra_sonic_sensor.get_distance()
+        while True:
+            # Try to grab a temp_sensor reading
+            humidity, temperature = temp_sensor.read()
+            distance = ultra_sonic_sensor.get_distance()
 
-        # Print the temp_sensor values
-        now = time.time()
-        t = time.localtime(now)
-        humidity = int(round(humidity))
-        temperature = int(round(temperature))
-        #print("{:02d}:{:02d}:{:02d},{:g},{:g}".format(t.tm_hour, t.tm_min, t.tm_sec, temperature, humidity), flush=True)
-        print(
-            'temp: ', temperature,
-            '\nhum: ', humidity,
-            '\ndistance: ', distance,
-            end = '\r'
-            )
+            # Print the temp_sensor values
+            now = time.time()
+            t = time.localtime(now)
+            humidity = int(round(humidity))
+            temperature = int(round(temperature))
+            #print("{:02d}:{:02d}:{:02d},{:g},{:g}".format(t.tm_hour, t.tm_min, t.tm_sec, temperature, humidity), flush=True)
+            print(
+                'temp: ', temperature,
+                '\nhum: ', humidity,
+                '\ndistance: ', distance,
+                end = '\r'
+                )
 
 
     except KeyboardInterrupt:
