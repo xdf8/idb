@@ -1,12 +1,12 @@
 import time
-from grove.button.button import Button
+import grove.grove_button as button
 
 
 BUTTON_PIN = 16
 
 def main():
     # Initialize
-    button = Button(BUTTON_PIN)
+    button = button.Button(BUTTON_PIN)
 
     while True:
         if button.is_pressed():
