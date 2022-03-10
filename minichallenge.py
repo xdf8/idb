@@ -36,7 +36,9 @@ def main():
                     )
             
             else:
-                print('Press button to see measurements!')
+                print('Press button to see measurements!', end = '\r')
+                time.sleep(1)
+
 
 
         except KeyboardInterrupt:
