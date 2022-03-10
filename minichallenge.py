@@ -26,8 +26,8 @@ def main():
             #print("{:02d}:{:02d}:{:02d},{:g},{:g}".format(t.tm_hour, t.tm_min, t.tm_sec, temperature, humidity), flush=True)
             print(
                 'temp: ', temperature,
-                '\nhum: ', humidity,
-                '\ndistance: ', distance,
+                'hum: ', humidity,
+                'distance: ', distance,
                 end = '\r'
                 )
 
