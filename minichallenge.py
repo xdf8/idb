@@ -38,13 +38,13 @@ def main():
             else:
                 print('Press button to see measurements!', end = '\r')
             
-            time.sleep(0.1)
+            time.sleep(0.05)
 
 
 
         except KeyboardInterrupt:
             print('\n')
-            pass
+            #pass
 
 if __name__ == '__main__':
     main()
