@@ -8,7 +8,7 @@ def main():
     button = GPIO(BUTTON_PIN, GPIO.IN)
 
     while True:
-        if button.is_pressed():
+        if button.read():
             print('button is pressed', end = '\r')
             time.sleep(1)
         
