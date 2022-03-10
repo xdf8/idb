@@ -3,7 +3,7 @@ import time
 import grove.grove_temperature_humidity_sensor as dht
 import grove.grove_ultrasonic_ranger as usr
 
-DHT_PIN = 16 # rasperry pi Pin16, Grove D16
+DHT_PIN = 20 # rasperry pi Pin16, Grove D16
 USR_PIN = 5
 
 
