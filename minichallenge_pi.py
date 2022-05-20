@@ -5,6 +5,7 @@ import grove.grove_ultrasonic_ranger as usr
 from grove.gpio import GPIO
 
 import os
+import csv
 
 DHT_PIN = 20 # rasperry pi Pin16, Grove D16
 USR_PIN = 5
@@ -36,14 +37,10 @@ def main():
                 end = '\r'
                 )
             
-            if os.path.isfile('data.csv'):
-                # append to file
-                pass
-            
-            
-            else:
-                # create file
-                pass
+            # write to file
+            with open('data.csv', 'a') as csvfile:
+                writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([current_time.tm_hour, current_time.tm_min, current_time.tm_sec, temperature, humidity, distance])
 
         else:
             print('Press button to start measuring!', end = '\r')
