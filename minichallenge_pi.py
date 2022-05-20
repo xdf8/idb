@@ -4,7 +4,6 @@ import grove.grove_temperature_humidity_sensor as dht
 import grove.grove_ultrasonic_ranger as usr
 from grove.gpio import GPIO
 
-import pandas as pd
 import os
 
 DHT_PIN = 20 # rasperry pi Pin16, Grove D16
@@ -36,18 +35,15 @@ def main():
                 'distance: ', distance,
                 end = '\r'
                 )
-            df = pd.DataFrame({
-                'timestamp': current_time,
-                'temp': temperature,
-                'hum': humidity,
-                'distance': distance
-                })
             
             if os.path.isfile('data.csv'):
-                df.to_csv('data.csv', mode = 'a', index = False, header = False)
+                # append to file
+                pass
+            
             
             else:
-                df.to_csv('data.csv', index = False)
+                # create file
+                pass
 
         else:
             print('Press button to start measuring!', end = '\r')
