@@ -38,9 +38,12 @@ def main():
                 )
             
             # write to file
-            with open('data.csv', 'a') as csvfile:
-                writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                writer.writerow([current_time.tm_hour, current_time.tm_min, current_time.tm_sec, temperature, humidity, distance])
+            writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            # add csv header
+            writer.writerow(['timestamp', 'temperature', 'humidity', 'distance'])
+            with open('measurements_pi/data.csv', 'a') as csvfile:
+                # add data
+                writer.writerow([f'{current_time.tm_hour}:{current_time.tm_min}:{current_time.tm_sec}', temperature, humidity, distance])
 
         else:
             print('Press button to start measuring!', end = '\r')
