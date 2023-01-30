@@ -1,7 +1,5 @@
 import time
 import datetime
-import os
-import csv
 
 import grove.grove_ultrasonic_ranger as usr
 from grove.gpio import GPIO

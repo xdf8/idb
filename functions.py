@@ -1,7 +1,6 @@
 import requests
 import yaml
 import csv
-import time
 
 
 def load_yaml_file(yaml_path="config.yaml") -> dict:
