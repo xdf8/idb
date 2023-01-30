@@ -20,6 +20,8 @@ BUTTON_PIN = 16
 
 
 def main():
+    # keep track if button has been pressed
+    button_pressed_prev = False
     try:
         # Initialize
         temp_sensor = dht.DHT("11", DHT_PIN)
@@ -28,6 +30,7 @@ def main():
 
         while True:
             if button.read():
+                button_pressed_prev = True
                 # measurements
                 humidity, temperature = temp_sensor.read()
                 distance = ultra_sonic_sensor.get_distance()
@@ -48,21 +51,31 @@ def main():
                     distance,
                     end="\r",
                 )
-                # use current date and time as filename
-                filename = f"data/{time.strftime('%Y-%m-%d_%H-%M-%S', current_time)}.csv"
+
                 write_to_csv(
-                    temp=temperature, hum=humidity, dist=distance, file_name=filename
+                    time=current_time,
+                    temp=temperature,
+                    hum=humidity,
+                    dist=distance,
                 )
                 write_data_to_api(
-                    temp=temperature, hum=humidity, dist=distance, config_path="config.yaml"
+                    temp=temperature,
+                    hum=humidity,
+                    dist=distance,
+                    config_path="config.yaml",
                 )
+            # run after button has been released
+            elif button.read() == 0 and button_pressed_prev:
+                button_pressed_prev = False
+                print("Measurement stopped by User")
 
             else:
                 print("Press button to start measuring!", end="\r")
 
-            time.sleep(.1)
+            time.sleep(1)
+
     except KeyboardInterrupt:
-        print("Measurement stopped by User")
+        print("\nMeasurement stopped by User")
         exit(0)
 
 
