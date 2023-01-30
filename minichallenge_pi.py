@@ -1,4 +1,5 @@
 import time
+import datetime
 import os
 import csv
 
@@ -12,7 +13,7 @@ except:
     # check, that python lib 'seeed-python-dht' is installed; sudo pip3 install seeed-python-dht
     import seeed_dht as dht
 
-from functions import write_to_csv, write_data_to_api
+from functions import write_to_csv, write_data_to_api, load_yaml_file
 
 DHT_PIN = 20  # rasperry pi Pin16, Grove D16
 USR_PIN = 5
@@ -20,6 +21,7 @@ BUTTON_PIN = 16
 
 
 def main():
+    config = load_yaml_file("config.yaml")
     # keep track if button has been pressed
     button_pressed_prev = False
     try:
@@ -36,20 +38,21 @@ def main():
                 distance = ultra_sonic_sensor.get_distance()
 
                 # Print the temp_sensor values
-                now = time.time()
-                current_time = time.localtime(now)
+                current_time = datetime.datetime.now()
                 humidity = int(round(humidity))
                 temperature = int(round(temperature))
                 distance = int(round(distance))
 
                 print(
+                    "time: ",
+                    current_time,
                     "temp: ",
                     temperature,
                     "hum: ",
                     humidity,
                     "distance: ",
                     distance,
-                    end="\r",
+                    # end="\r",
                 )
 
                 write_to_csv(
@@ -62,17 +65,18 @@ def main():
                     temp=temperature,
                     hum=humidity,
                     dist=distance,
-                    config_path="config.yaml",
+                    config=config,
                 )
             # run after button has been released
             elif button.read() == 0 and button_pressed_prev:
                 button_pressed_prev = False
                 print("Measurement stopped by User")
+                exit(0)
 
             else:
                 print("Press button to start measuring!", end="\r")
 
-            time.sleep(1)
+            time.sleep(2)
 
     except KeyboardInterrupt:
         print("\nMeasurement stopped by User")
