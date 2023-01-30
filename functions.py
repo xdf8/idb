@@ -36,7 +36,6 @@ def write_data_to_api(temp, hum, dist, config):
         "field2": hum,
         "field3": dist,
     }
-    print(params)
     try:
         r = requests.get(url, params=params)
 

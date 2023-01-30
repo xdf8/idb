@@ -50,7 +50,6 @@ def main():
                     humidity,
                     "distance: ",
                     distance,
-                    # end="\r",
                 )
 
                 write_to_csv(
