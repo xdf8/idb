@@ -1,3 +1,8 @@
 requests
 PyYAML
 seeed-python-dht
+jupyterlab
+pandas
+matplotlib
+seaborn
+numpy
