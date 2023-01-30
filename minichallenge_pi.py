@@ -12,7 +12,7 @@ except:
     # check, that python lib 'seeed-python-dht' is installed; sudo pip3 install seeed-python-dht
     import seeed_dht as dht
 
-from functions import write_data_to_api
+from functions import write_to_csv, write_data_to_api
 
 DHT_PIN = 20  # rasperry pi Pin16, Grove D16
 USR_PIN = 5
@@ -48,22 +48,7 @@ def main():
                 end="\r",
             )
 
-            # write to file
-            writer = csv.writer(
-                csvfile, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL
-            )
-            # add csv header
-            writer.writerow(["timestamp", "temperature", "humidity", "distance"])
-            with open("measurements_pi/data.csv", "a") as csvfile:
-                # add data
-                writer.writerow(
-                    [
-                        f"{current_time.tm_hour}:{current_time.tm_min}:{current_time.tm_sec}",
-                        temperature,
-                        humidity,
-                        distance,
-                    ]
-                )
+            write_to_csv(temp=temperature, hum=humidity, dist=distance)
             write_data_to_api(
                 temp=temperature, hum=humidity, dist=distance, config_path="config.yaml"
             )
