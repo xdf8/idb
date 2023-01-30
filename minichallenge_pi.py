@@ -20,46 +20,50 @@ BUTTON_PIN = 16
 
 
 def main():
-    # Initialize
-    temp_sensor = dht.DHT("11", DHT_PIN)
-    ultra_sonic_sensor = usr.GroveUltrasonicRanger(USR_PIN)
-    button = GPIO(BUTTON_PIN, GPIO.IN)
+    try:
+        # Initialize
+        temp_sensor = dht.DHT("11", DHT_PIN)
+        ultra_sonic_sensor = usr.GroveUltrasonicRanger(USR_PIN)
+        button = GPIO(BUTTON_PIN, GPIO.IN)
 
-    while True:
-        if button.read():
-            # measurements
-            humidity, temperature = temp_sensor.read()
-            distance = ultra_sonic_sensor.get_distance()
+        while True:
+            if button.read():
+                # measurements
+                humidity, temperature = temp_sensor.read()
+                distance = ultra_sonic_sensor.get_distance()
 
-            # Print the temp_sensor values
-            now = time.time()
-            current_time = time.localtime(now)
-            humidity = int(round(humidity))
-            temperature = int(round(temperature))
-            distance = int(round(distance))
+                # Print the temp_sensor values
+                now = time.time()
+                current_time = time.localtime(now)
+                humidity = int(round(humidity))
+                temperature = int(round(temperature))
+                distance = int(round(distance))
 
-            print(
-                "temp: ",
-                temperature,
-                "hum: ",
-                humidity,
-                "distance: ",
-                distance,
-                end="\r",
-            )
-            # use current date and time as filename
-            filename = f"data/{time.strftime('%Y-%m-%d_%H-%M-%S', current_time)}.csv"
-            write_to_csv(
-                temp=temperature, hum=humidity, dist=distance, file_name=filename
-            )
-            write_data_to_api(
-                temp=temperature, hum=humidity, dist=distance, config_path="config.yaml"
-            )
+                print(
+                    "temp: ",
+                    temperature,
+                    "hum: ",
+                    humidity,
+                    "distance: ",
+                    distance,
+                    end="\r",
+                )
+                # use current date and time as filename
+                filename = f"data/{time.strftime('%Y-%m-%d_%H-%M-%S', current_time)}.csv"
+                write_to_csv(
+                    temp=temperature, hum=humidity, dist=distance, file_name=filename
+                )
+                write_data_to_api(
+                    temp=temperature, hum=humidity, dist=distance, config_path="config.yaml"
+                )
 
-        else:
-            print("Press button to start measuring!", end="\r")
+            else:
+                print("Press button to start measuring!", end="\r")
 
-        time.sleep(1)
+            time.sleep(.1)
+    except KeyboardInterrupt:
+        print("Measurement stopped by User")
+        exit(0)
 
 
 if __name__ == "__main__":
