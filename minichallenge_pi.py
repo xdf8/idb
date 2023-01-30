@@ -48,7 +48,7 @@ def main():
                 end="\r",
             )
             # use current date and time as filename
-            filename = f"{time.strftime('%Y-%m-%d_%H-%M-%S', current_time)}.csv"
+            filename = f"data/{time.strftime('%Y-%m-%d_%H-%M-%S', current_time)}.csv"
             write_to_csv(
                 temp=temperature, hum=humidity, dist=distance, file_name=filename
             )
