@@ -1,5 +1,6 @@
 import requests
 import yaml
+import csv
 
 
 def load_yaml_file(yaml_path="config.yaml") -> dict:
@@ -12,6 +13,15 @@ def load_yaml_file(yaml_path="config.yaml") -> dict:
         except yaml.YAMLError as exc:
             print(exc)
     return config
+
+
+def write_to_csv(temp, hum, dist, file_name):
+    data = [temp, hum, dist]
+    with open(file_name, "w", encoding="UTF8") as f:
+        writer = csv.writer(f)
+
+        # write the data
+        writer.writerow(data)
 
 
 def write_data_to_api(temp, hum, dist, config_path):
