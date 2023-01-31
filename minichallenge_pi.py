@@ -7,8 +7,6 @@ from grove.gpio import GPIO
 try:
     import grove.grove_temperature_humidity_sensor as dht
 except:
-    # Install  pip3 install seeed-python-dht if ModuleNotFoundError: No module named 'grove.grove_temperature_humidity_sensor'
-    # check, that python lib 'seeed-python-dht' is installed; sudo pip3 install seeed-python-dht
     import seeed_dht as dht
 
 from functions import write_to_csv, write_data_to_api, load_yaml_file
